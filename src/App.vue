@@ -4,13 +4,12 @@ import MeteoDashboard from './components/Meteo/MeteoDashboard.vue';
 </script>
 
 <template>
-    <Suspense>
-      <template #fallback>
-        Loading...
-      </template>
-      <MeteoDashboard/>
-    </Suspense>
-
+  <Suspense>
+    <template #fallback>
+      Loading...
+    </template>
+    <MeteoDashboard/>
+  </Suspense>
 </template>
 
 <style scoped>

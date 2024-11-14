@@ -23,6 +23,8 @@ export function useMeteo() {
             }
         ]
     })
+
+    const current = ref({})
     
     const callAPI = async() => {
         data.value = await ky.get(
@@ -30,11 +32,15 @@ export function useMeteo() {
         ).json()
     
         chartData.labels = data.value.hourly.time.map((date) => {
-            return moment(date).format("HH:mm:ss DD-MM-YYYY")
+            if(moment(date).format('HH:mm') == '00:00') {
+                return moment(date).format("HH:mm:ss DD-MM-YYYY")
+            }
+            return moment(date).format('HH:mm')
         })
         chartData.datasets[0].data = data.value.hourly.temperature_2m
+        current.value = data.value.current;
     }
 
-    return { chartData, data, callAPI }
+    return { chartData, current, data, callAPI }
 }
 
